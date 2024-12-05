@@ -6,7 +6,7 @@ from tasks.abstracttask import AbstractTask
 class Task4(AbstractTask):
     def __init__(self):
         super().__init__(4)
-        self.input = self.read_file_lines()
+        self.input = None
 
     def get_char_on_post(self, x, y):
         if x < 0 or x >= len(self.input[0]) or y < 0 or y >= len(self.input):
@@ -15,6 +15,7 @@ class Task4(AbstractTask):
         return self.input[y][x]
 
     def simple_task(self):
+        self.input = self.read_file_lines()
         starts = []
         for h, str in enumerate(self.input):
             for w, c in enumerate(str):
@@ -34,6 +35,7 @@ class Task4(AbstractTask):
         return result
     
     def extended_task(self):
+        self.input = self.read_file_lines()
         starts = []
         for h, str in enumerate(self.input):
             for w, c in enumerate(str):
