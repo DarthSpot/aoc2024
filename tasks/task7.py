@@ -5,12 +5,6 @@ class Task7(AbstractTask):
     def __init__(self):
         super().__init__(7)
 
-    def add(self, x, y):
-        return x + y
-
-    def sub(self, x, y):
-        return x * y
-
     def try_resolve(self, test: int, current: int, remainder: list):
         if current > test:
             return False
@@ -36,28 +30,22 @@ class Task7(AbstractTask):
                     or self.try_resolve_ex(test, mul_value, tail)
                     or self.try_resolve_ex(test, merge_value, tail))
 
-    def simple_task(self):
+    def calculate_task_result(self, resolve_func):
         result = 0
         for line in self.read_file_lines():
             test_value, remainder = line.split(':')
             test_value = int(test_value)
             values = list(map(int, remainder.strip().split(' ')))
             head, *tail = values
-            if self.try_resolve(test_value, head, tail):
+            if resolve_func(test_value, head, tail):
                 result += test_value
         return result
+
+    def simple_task(self):
+        return self.calculate_task_result(self.try_resolve)
 
     
     def extended_task(self):
-        result = 0
-        for line in self.read_file_lines():
-            test_value, remainder = line.split(':')
-            test_value = int(test_value)
-            values = list(map(int, remainder.strip().split(' ')))
-            head, *tail = values
-            if self.try_resolve_ex(test_value, head, tail):
-                result += test_value
-        return result
-
+        return self.calculate_task_result(self.try_resolve_ex)
 
 Task7()
